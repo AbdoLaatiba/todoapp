@@ -1,0 +1,38 @@
+{% extends 'todo/main.html' %}
+{% block title %}
+    Todo
+{% endblock title %}
+
+{% block content %}
+
+    <form method="POST">
+        {% csrf_token %}
+      <div class="form-group">
+        <div class="row">
+            <div class="col-md-11">
+                <input type="text" class="form-control" name="todo_title" placeholder="What do wanna do next???" >
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary w-100">Add</button>
+            </div>
+        </div>
+      </div>
+    </form>
+
+    <ul class="list-group">
+        {% for todo in todos %}
+        <div class="list-group-item" style="display:flex;justify-content: space-between;">
+            <li id="item"  style="list-style: none;">{{todo.title}}</li>
+            <div>
+                <a href="todo/{{todo.id}}" class="btn btn-danger ml-2">Delete</a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="list-group-item" style="display:flex;justify-content: space-between;">
+            <li style="list-style: none;">Sorry, no items in this list try add some.</li>
+        </div>
+
+        {% endfor %}
+    </ul>
+
+{% endblock content %}
